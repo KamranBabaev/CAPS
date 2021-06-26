@@ -1,22 +1,46 @@
+import React from "react";
 import './App.css';
 import {Drawer} from "./components/Drawer/Drawer";
 import {Header} from "./components/Header/Header";
 import {Card} from "./components/Card/Card";
+import {useState} from "react";
+import {logDOM} from "@testing-library/react";
 
-
-const caps = [
-    {id: 1, name: 'кепка TRAILHEAD UX-1', price: 1999, imgUrl: 'caps/caps1.jpg'},
-    {id: 2, name: 'кепка TRAILHEAD XYX-2', price: 1650, imgUrl: 'caps/caps2.jpg'},
-    {id: 3, name: 'кепка TRAILHEAD JK-3', price: 2100, imgUrl: 'caps/caps3.jpg'},
-    {id: 4, name: 'кепка TRAILHEAD POY-4', price: 2349, imgUrl: 'caps/caps4.jpg'},
-]
 
 function App() {
+
+
+    const [items, setItems] = useState([])
+    const [cartItems, setCartItems] = useState([])
+    const [cartOpened, setCartOpened] = useState(false)
+
+
+    React.useEffect(() => {
+        fetch('https://60d6dc54307c300017a5f532.mockapi.io/items')
+            .then((res) => {
+                return res.json()
+            })
+            .then((json) => {
+                setItems(json)
+            })
+    }, [])
+
+
+    const addAddtoCart = (obj) => {
+        setCartItems(prev => [...prev, obj])
+    }
+
     return (
         <div className="wrapper">
 
-            <Drawer/>
-            <Header/>
+            {
+                cartOpened
+                    ? <Drawer items={cartItems}
+                              onClose={() => setCartOpened(false)}/>
+                    : null
+            }
+
+            <Header onClickCart={() => setCartOpened(true)}/>
 
             <div className='content'>
                 <div className='contentHeader'>
@@ -30,13 +54,12 @@ function App() {
                 </div>
 
                 <div className='allCaps'>
-                    {caps.map(obj =>
-                        <Card
-                            key={obj.id}
-                            id={obj.id}
-                            name={obj.name}
-                            price={obj.price}
-                            imgUrl={obj.imgUrl}
+                    {items.map(obj =>
+                        <Card key={obj.id}
+                              name={obj.name}
+                              price={obj.price}
+                              imgUrl={obj.imgUrl}
+                              onPlus={(obj) => addAddtoCart(obj)}
                         />)}
                 </div>
             </div>

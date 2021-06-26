@@ -1,53 +1,54 @@
 import styles from './Drawer.module.scss'
 
-export const Drawer = () => {
+
+export const Drawer = ( {onClose, items = []}) => {
 
     return (
-        <div style={{display: ""}} className='overlay'>
-            <div className='drawer'>
+        <div style={{display: ""}} className={styles.overlay}>
+            <div className={styles.drawer}>
                 <h2>Корзина:
-                    <img className='removeBTN' src={'icons/cancel.png'} width={18} height={18} alt=''/>
+                    <img className={styles.removeBTN}
+                         src={'icons/cancel.png'}
+                         width={18}
+                         height={18}
+                         alt=''
+                         onClick={onClose}
+                    />
                 </h2>
-                <div className='items'>
-                    <div className="cartItems">
-                        <img className='productInCart' src={'caps/caps1.jpg'} width={70} alt=""/>
-                        <div className='item'>
-                            <p>КЕПКА<br/>TRAILHEAD UX-1</p>
-                            <b>1 999 руб.</b>
-                        </div>
-                        <img className='removeBTN' src={'icons/cancel.png'} width={15} height={15} alt=''/>
-                    </div>
-                    <div className="cartItems">
-                        <img className='productInCart' src={'caps/caps2.jpg'} width={70} alt=""/>
-                        <div className='item'>
-                            <p>КЕПКА<br/>TRAILHEAD UX-1</p>
-                            <b>1 999 руб.</b>
-                        </div>
-                        <img className='removeBTN' src={'icons/cancel.png'} width={15} height={15} alt=''/>
-                    </div>
-                    <div className="cartItems">
-                        <img className='productInCart' src={'caps/caps3.jpg'} width={70} alt=""/>
-                        <div className='item'>
-                            <p>КЕПКА<br/>TRAILHEAD UX-1</p>
-                            <b>1 999 руб.</b>
-                        </div>
-                        <img className='removeBTN' src={'icons/cancel.png'} width={15} height={15} alt=''/>
-                    </div>
+                <div className={styles.items}>
+
+                    {
+                        items.map( (obj) => (
+                            <div className={styles.cartItems}>
+                                <img className={styles.productInCart}
+                                     src={obj.imgUrl}
+                                     width={70} alt=""/>
+                                <div className={styles.item}>
+                                    <p>{obj.name}</p>
+                                    <b>{obj.price} руб</b>
+                                </div>
+                                <img className={styles.removeBTN} src={'icons/cancel.png'} width={15} height={15} alt=''/>
+                            </div>
+                        ))
+                    }
+
+
+
                 </div>
-                <div className='resultCartBlock'>
+                <div className={styles.resultCartBlock}>
                     <ul>
-                        <li className='total'>
+                        <li className={styles.total}>
                             <span>Итого:</span>
                             <div></div>
                             <b>5 997 руб.</b>
                         </li>
-                        <li className='tax'>
+                        <li className={styles.tax}>
                             <span>Налог 13%:</span>
                             <div></div>
                             <b>760 руб.</b>
                         </li>
                     </ul>
-                    <button className='greenBTN'>оформить заказ
+                    <button className={styles.greenBTN}>оформить заказ
                         <img src={'icons/right-arrow.png'} width={28} alt=''/>
                     </button>
                 </div>

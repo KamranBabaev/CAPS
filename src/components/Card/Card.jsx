@@ -1,15 +1,27 @@
 import styles from './Card.module.scss'
+import {useState} from "react";
 
 export const Card = (props) => {
 
-    const onClickButton = () => {
-        alert(props.id)
+    const [isAdded, setIsAdded] = useState(false)
+    const [isFavorite, setIsFavorite] = useState(false)
+
+    const onClickFavorite = () => {
+        setIsFavorite(!isFavorite)
+    }
+
+    const onClickPlus = () => {
+        props.onPlus(props)
+        setIsAdded(!isAdded)
     }
 
     return (
         <div className={styles.card}>
             <div className={styles.favorite}>
-                <img src={'icons/unliked.svg'} width={15} height={15} alt=''/>
+                <img onClick={onClickFavorite}
+                     src={isFavorite ? 'icons/liked.svg' : 'icons/unliked.svg'}
+                     width={18}
+                     height={18} alt=''/>
             </div>
 
             <img src={props.imgUrl} width={133} alt=""/>
@@ -22,8 +34,8 @@ export const Card = (props) => {
                     <b>{props.price} руб.</b>
                 </div>
 
-                <button className={styles.button} onClick={onClickButton}>
-                    <img src={'icons/add.png'} width={15} height={15} alt=""/>
+                <button className={styles.button} onClick={onClickPlus}>
+                    <img src={isAdded ? 'icons/plus.svg' : 'icons/add.png'} width={20} height={20} alt=""/>
                 </button>
 
             </div>

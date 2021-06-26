@@ -1,6 +1,6 @@
 import styles from './Header.module.scss'
 
-export const Header = () => {
+export const Header = (props) => {
 
     return (
         <header>
@@ -13,12 +13,12 @@ export const Header = () => {
             </div>
 
             <ul className={styles.headerRight}>
-                <li>
-                    <img src={'icons/shopCart.png'} width={18} height={18}/>
+                <li onClick={props.onClickCart}>
+                    <img src={'icons/shopCart.png'} width={22} height={22}/>
                     <span>1 999 руб.</span>
                 </li>
                 <li>
-                    <img src={'icons/user.png'} width={18} height={18}/>
+                    <img src={'icons/user.png'} width={22} height={22}/>
                 </li>
             </ul>
         </header>

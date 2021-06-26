@@ -36,12 +36,20 @@ header {
 
   .headerRight {
     display: flex;
+    align-items: center;
 
     li {
       margin-right: 30px;
+      cursor: pointer;
 
       img {
-        margin-right: 15px;
+        margin-right: 25px;
+        transition: 50ms ease-in-out;
+      }
+
+      img:hover {
+        transform: translateY(-2px);
+        transition: 100ms ease-in-out;
       }
     }
   }
