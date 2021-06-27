@@ -28,6 +28,23 @@
       align-items: center;
     }
 
+    .emptyCart {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      flex: 1;
+
+      .iconCart {
+        margin-bottom: 20px;
+        opacity: 50%;
+      }
+
+      p {
+        opacity: 70%;
+      }
+    }
+
     .items {
       flex: 1;
       overflow: auto;
