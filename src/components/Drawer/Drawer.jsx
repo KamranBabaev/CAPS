@@ -65,7 +65,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart}) => {
                             />
                             <h2>Корзина пустая</h2>
                             <p>Добавьте один и более товаров для оформления заказа</p>
-                            <button className={styles.greenBTN}>
+                            <button onClick={onClose} className={styles.greenBTN}>
                                 вернуться назад
                             </button>
                         </div>

@@ -1,17 +1,19 @@
 import styles from './Card.module.scss'
 import {useState} from "react";
 
-export const Card = (props) => {
+export const Card = ({name, price, imgUrl, onAddToFavorite, onPlus}) => {
 
     const [isAdded, setIsAdded] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false)
 
+
     const onClickFavorite = () => {
+        onAddToFavorite({name, price, imgUrl})
         setIsFavorite(!isFavorite)
     }
 
     const onClickPlus = () => {
-        props.onPlus(props)
+        onPlus({name, price, imgUrl})
         setIsAdded(!isAdded)
     }
 
@@ -24,14 +26,14 @@ export const Card = (props) => {
                      height={18} alt=''/>
             </div>
 
-            <img src={props.imgUrl} width={133} alt=""/>
-            <h5>{props.name}</h5>
+            <img src={imgUrl} width={133} alt=""/>
+            <h5>{name}</h5>
 
             <div className={styles.cardBottom}>
 
                 <div className={styles.cardPrice}>
                     <span>Цена:  </span>
-                    <b>{props.price} руб.</b>
+                    <b>{price} руб.</b>
                 </div>
 
                 <button className={styles.button} onClick={onClickPlus}>
