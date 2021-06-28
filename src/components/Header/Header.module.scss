@@ -6,6 +6,11 @@ header {
   padding: 40px;
   border-bottom: 1px solid #eaeaea;
 
+  a, a:active, a:before, a:after {
+    text-decoration: none;
+    color: black;
+  }
+
   .headerLeft {
 
     display: flex;
@@ -28,6 +33,7 @@ header {
         font-family: 'Comfortaa', sans-serif;
         opacity: 0.7;
         font-size: 16px;
+
       }
 
     }

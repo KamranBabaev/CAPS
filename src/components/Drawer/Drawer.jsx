@@ -1,7 +1,7 @@
 import styles from './Drawer.module.scss'
 
 
-export const Drawer = ({onClose, items = [], onRemoveItemToCart}) => {
+export const Drawer = ({onClose, items = [], onRemoveItemToCart }) => {
 
     return (
         <div style={{display: ""}} className={styles.overlay}>
