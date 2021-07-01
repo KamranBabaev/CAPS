@@ -10,29 +10,42 @@ import {Favorites} from "./pages/Favorites";
 
 function App() {
 
-
     const [items, setItems] = useState([])
     const [cartItems, setCartItems] = useState([])
     const [cartOpened, setCartOpened] = useState(false)
     const [searchValue, setSearchValue] = useState('')
     const [favorites, setFavorites] = useState([])
-
+    const [isLoading, setIsLoading] = useState(true)
 
     React.useEffect(() => {
-        axios.get('https://60d6dc54307c300017a5f532.mockapi.io/items').then(res => {
-            setItems(res.data)
-        })
-        axios.get('https://60d6dc54307c300017a5f532.mockapi.io/cart').then(res => {
-            setCartItems(res.data)
-        })
-        axios.get('https://60d6dc54307c300017a5f532.mockapi.io/favorites').then(res => {
-            setFavorites(res.data)
-        })
+        async function fetchData() {
+
+            setIsLoading(true)
+
+            const itemsResponse = await axios.get('https://60d6dc54307c300017a5f532.mockapi.io/items')
+            const cartResponse = await axios.get('https://60d6dc54307c300017a5f532.mockapi.io/cart')
+            const favoritesResponse = await axios.get('https://60d6dc54307c300017a5f532.mockapi.io/favorites')
+
+            setIsLoading(false)
+
+            setItems(itemsResponse.data)
+            setCartItems(cartResponse.data)
+            setFavorites(favoritesResponse.data)
+        }
+
+        fetchData()
     }, [])
 
-    const addAddtoCart = (obj) => {
-        axios.post('https://60d6dc54307c300017a5f532.mockapi.io/cart', obj)
-        setCartItems(prev => [...prev, obj])
+
+    const onAddtoCart = (obj) => {
+        if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
+            axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/cart/${obj.id}`)
+            setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+
+        } else {
+            axios.post('https://60d6dc54307c300017a5f532.mockapi.io/cart', obj)
+            setCartItems(prev => [...prev, obj])
+        }
     }
 
     const onRemoveItemToCart = (id) => {
@@ -60,7 +73,6 @@ function App() {
 
 
     return (
-
         <div className="wrapper">
 
             {
@@ -75,12 +87,13 @@ function App() {
 
             <Route exact path='/'>
                 <Home items={items}
+                      cartItems={cartItems}
                       searchValue={searchValue}
                       setSearchValue={setSearchValue}
                       onChangeSearchInput={onChangeSearchInput}
                       onAddToFavorite={onAddToFavorite}
-                      addAddtoCart={addAddtoCart}
-                />
+                      onAddtoCart={onAddtoCart}
+                      isLoading={isLoading}/>
             </Route>
 
             <Route exact path='/favorites'>

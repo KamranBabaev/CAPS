@@ -12,12 +12,12 @@ export function Favorites({items, onAddToFavorite}) {
                     items
                         .map(obj =>
                             <Card key={obj.id}
+                                  favorited={true}
+                                  onAddToFavorite={onAddToFavorite}
                                   id={obj.id}
                                   name={obj.name}
                                   price={obj.price}
-                                  imgUrl={obj.imgUrl}
-                                  favorited={true}
-                                  onAddToFavorite={onAddToFavorite}
+                                  imgUrl={obj}
                             />)
                 }
             </div>

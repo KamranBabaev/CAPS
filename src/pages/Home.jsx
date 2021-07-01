@@ -1,15 +1,38 @@
 import styles from "../components/Drawer/Drawer.module.scss";
 import {Card} from "../components/Card/Card";
 
-export function Home({items, addAddtoCart, onAddToFavorite, onChangeSearchInput, setSearchValue, searchValue}) {
+export function Home({
+                         items,
+                         cartItems,
+                         onAddtoCart,
+                         onAddToFavorite,
+                         onChangeSearchInput,
+                         setSearchValue,
+                         searchValue,
+                         isLoading
+                     }) {
+
+
+    const renderItems = () => {
+        const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()))
+
+        return (isLoading ? [...Array(10)] : filteredItems)
+            .map(item =>
+                <Card key={item.id}
+                      onAddToFavorite={(obj) => onAddToFavorite(obj)}
+                      onPlus={(item) => onAddtoCart(item)}
+                      added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
+                      loading={isLoading}
+                    {...item}
+                />)
+    }
+
     return (
         <div className='content'>
             <div className='contentHeader'>
                 <div>
                     <h1>
-                        {
-                            searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все бейсболки: '
-                        }
+                        {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все бейсболки: '}
                     </h1>
                 </div>
                 <div className='searchBlock'>
@@ -18,12 +41,7 @@ export function Home({items, addAddtoCart, onAddToFavorite, onChangeSearchInput,
                         searchValue ?
                             <img onClick={() => setSearchValue('')}
                                  className={styles.removeBTN}
-                                 style={{
-                                     boxSizing: 'border-box',
-                                     outline: 'none',
-                                     position: 'absolute',
-                                     right: '20px'
-                                 }}
+                                 style={{boxSizing: 'border-box', outline: 'none', position: 'absolute', right: '20px'}}
                                  src={'icons/cancel.png'}
                                  width={12}
                                  height={12}
@@ -35,19 +53,7 @@ export function Home({items, addAddtoCart, onAddToFavorite, onChangeSearchInput,
             </div>
 
             <div className='allCaps'>
-                {
-                    items
-                        .filter(item => item.name.toLowerCase().includes(searchValue))
-                        .map(obj =>
-                            <Card key={obj.id}
-                                  id={obj.id}
-                                  name={obj.name}
-                                  price={obj.price}
-                                  imgUrl={obj.imgUrl}
-                                  onPlus={(obj) => addAddtoCart(obj)}
-                                  onAddToFavorite={(obj) => onAddToFavorite(obj)}
-                            />)
-                }
+                {renderItems()}
             </div>
         </div>
     )

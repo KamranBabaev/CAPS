@@ -22,7 +22,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart }) => {
                             <div className={styles.items}>
                                 {
                                     items.map((obj) => (
-                                        <div className={styles.cartItems}>
+                                        <div key={obj.id} className={styles.cartItems}>
                                             <img className={styles.productInCart}
                                                  src={obj.imgUrl}
                                                  width={70} alt=""/>
