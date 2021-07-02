@@ -1,6 +1,7 @@
 import styles from './Card.module.scss'
-import {useState} from "react";
+import {useContext, useState} from "react";
 import ContentLoader from "react-content-loader"
+import {AppContext} from "../../App";
 
 export const Card = ({
                          id,
@@ -10,13 +11,11 @@ export const Card = ({
                          onAddToFavorite,
                          onPlus,
                          favorited = false,
-                         added = false,
                          loading = false
                      }) => {
 
-    const [isAdded, setIsAdded] = useState(added)
+    const {isItemAdded} = useContext(AppContext)
     const [isFavorite, setIsFavorite] = useState(favorited)
-
 
     const onClickFavorite = () => {
         onAddToFavorite({id, name, price, imgUrl})
@@ -25,7 +24,6 @@ export const Card = ({
 
     const onClickPlus = () => {
         onPlus({id, name, price, imgUrl})
-        setIsAdded(!isAdded)
     }
 
     return (
@@ -37,8 +35,8 @@ export const Card = ({
                         width={170}
                         height={280}
                         viewBox="0 0 155 280"
-                        backgroundColor="#e7eeee"
-                        foregroundColor="#d0d5d5">
+                        backgroundColor="#848383"
+                        foregroundColor="#c4c4c4">
                         <rect x="2" y="199" rx="10" ry="10" width="109" height="20"/>
                         <rect x="2" y="168" rx="10" ry="10" width="149" height="20"/>
                         <rect x="2" y="3" rx="10" ry="10" width="150" height="148"/>
@@ -65,7 +63,7 @@ export const Card = ({
                             </div>
 
                             <button className={styles.button} onClick={onClickPlus}>
-                                <img src={isAdded ? 'icons/plus.svg' : 'icons/add.png'} width={20} height={20} alt=""/>
+                                <img src={isItemAdded(id) ? 'icons/plus.svg' : 'icons/add.png'} width={20} height={20} alt=""/>
                             </button>
 
                         </div>
