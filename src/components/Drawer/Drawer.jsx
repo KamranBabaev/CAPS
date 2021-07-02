@@ -1,7 +1,27 @@
 import styles from './Drawer.module.scss'
+import {InfoInDrawer} from "../InfoInDrawer/InfoInDrawer";
+import {useContext, useState} from "react";
+import {AppContext} from "../../App";
+import axios from "axios";
 
 
-export const Drawer = ({onClose, items = [], onRemoveItemToCart }) => {
+export const Drawer = ({onClose, items = [], onRemoveItemToCart}) => {
+
+    const {cartItems, setCartItems} = useContext(AppContext)
+    const [isOrderComplete, setIsOrderComplete] = useState(false)
+    const [orderID, setOrderID] = useState(null)
+
+    const onClickOrder = async () => {
+        try {
+            const {data} = await axios.post('https://60d6dc54307c300017a5f532.mockapi.io/orders', {items: cartItems})
+            axios.put('https://60d6dc54307c300017a5f532.mockapi.io/orders', [])
+            setOrderID(data.id)
+            setIsOrderComplete(true)
+            setCartItems([])
+        } catch (error) {
+            alert('Не удалось создать заказ! :(')
+        }
+    }
 
     return (
         <div style={{display: ""}} className={styles.overlay}>
@@ -51,24 +71,20 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart }) => {
                                         <b>760 руб.</b>
                                     </li>
                                 </ul>
-                                <button className={styles.greenBTN}>оформить заказ
+                                <button onClick={onClickOrder}
+                                        className={styles.greenBTN}>оформить заказ
                                     <img src={'icons/right-arrow.png'} width={28} alt=''/>
                                 </button>
                             </div>
                         </>
 
 
-                        : <div className={styles.emptyCart}>
-                            <img className={styles.iconCart}
-                                 src={'icons/emptyCart.svg'}
-                                 width={120} height={120} alt=''
-                            />
-                            <h2>Корзина пустая</h2>
-                            <p>Добавьте один и более товаров для оформления заказа</p>
-                            <button onClick={onClose} className={styles.greenBTN}>
-                                вернуться назад
-                            </button>
-                        </div>
+                        : <InfoInDrawer title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
+                                        image={isOrderComplete ? 'icons/orderDone.png' : 'icons/emptyCart.svg'}
+                                        description={isOrderComplete
+                                            ? `Номер вашего заказа #${orderID}, в ближайшее время он будет передан в курьерскую службу!`
+                                            : 'Добавьте один и более товаров для оформления заказа'}
+                        />
                 }
 
             </div>
