@@ -13,7 +13,7 @@ export const Header = (props) => {
         <header>
             <Link to='/'>
                 <div className={styles.headerLeft}>
-                    <img src={'img/adelie-1.svg'} width={40} height={40} alt=''/>
+                    <img src={'img/logo.png'} width={40} height={40} alt=''/>
                     <div className={styles.headerInfo}>
                         <h3>CAPSULA</h3>
                         <p>магазин лучших гаджетов</p>
