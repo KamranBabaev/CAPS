@@ -1,7 +1,13 @@
 import styles from './Header.module.scss'
 import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {AppContext} from "../../App";
 
 export const Header = (props) => {
+
+    const {cartItems} = useContext(AppContext)
+
+    const totalPrice = cartItems.reduce((sum, elem) => elem.price + sum, 0)
 
     return (
         <header>
@@ -23,11 +29,13 @@ export const Header = (props) => {
                     </Link>
                 </li>
                 <li>
-                    <img src={'icons/userAcc.svg'} width={22} height={22} style={{opacity: '60%'}}/>
+                    <Link to='/orders'>
+                        <img src={'icons/userAcc.svg'} width={22} height={22} style={{opacity: '60%'}}/>
+                    </Link>
                 </li>
                 <li onClick={props.onClickCart}>
                     <img src={'icons/cart.svg'} width={22} height={22} style={{opacity: '60%'}}/>
-                    <span style={{marginRight: '35px', fontWeight: '600'}}>1 999 руб.</span>
+                    <span style={{marginRight: '35px', fontWeight: '600'}}>{totalPrice} руб.</span>
                 </li>
             </ul>
         </header>

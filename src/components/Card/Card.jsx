@@ -11,19 +11,21 @@ export const Card = ({
                          onAddToFavorite,
                          onPlus,
                          favorited = false,
-                         loading = false
+                         loading = false,
                      }) => {
 
     const {isItemAdded} = useContext(AppContext)
     const [isFavorite, setIsFavorite] = useState(favorited)
 
+    const itemObj = {id, parentID: id, name, price, imgUrl}
+
     const onClickFavorite = () => {
-        onAddToFavorite({id, name, price, imgUrl})
+        onAddToFavorite(itemObj)
         setIsFavorite(!isFavorite)
     }
 
     const onClickPlus = () => {
-        onPlus({id, name, price, imgUrl})
+        onPlus(itemObj)
     }
 
     return (
@@ -45,12 +47,12 @@ export const Card = ({
                     </ContentLoader>
 
                     : <>
-                        <div className={styles.favorite}>
+                        {favorited || <div className={styles.favorite}>
                             <img onClick={onClickFavorite}
                                  src={isFavorite ? 'icons/liked.svg' : 'icons/unliked.svg'}
                                  width={18}
                                  height={18} alt=''/>
-                        </div>
+                        </div>}
 
                         <img src={imgUrl} width={133} alt=""/>
                         <h5>{name}</h5>
@@ -62,9 +64,10 @@ export const Card = ({
                                 <b>{price} руб.</b>
                             </div>
 
-                            <button className={styles.button} onClick={onClickPlus}>
-                                <img src={isItemAdded(id) ? 'icons/plus.svg' : 'icons/add.png'} width={20} height={20} alt=""/>
-                            </button>
+                            {onPlus && <button className={styles.button} onClick={onClickPlus}>
+                                <img src={isItemAdded(id) ? 'icons/plus.svg' : 'icons/add.png'} width={20} height={20}
+                                     alt=""/>
+                            </button>}
 
                         </div>
                     </>

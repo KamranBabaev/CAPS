@@ -5,11 +5,14 @@ import {AppContext} from "../../App";
 import axios from "axios";
 
 
-export const Drawer = ({onClose, items = [], onRemoveItemToCart}) => {
+export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
 
     const {cartItems, setCartItems} = useContext(AppContext)
     const [isOrderComplete, setIsOrderComplete] = useState(false)
     const [orderID, setOrderID] = useState(null)
+
+    const totalPrice = cartItems.reduce((sum, elem) => elem.price + sum, 0)
+
 
     const onClickOrder = async () => {
         try {
@@ -24,7 +27,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart}) => {
     }
 
     return (
-        <div style={{display: ""}} className={styles.overlay}>
+        <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
             <div className={styles.drawer}>
                 <h2>Корзина:
                     <img className={styles.removeBTN}
@@ -63,12 +66,12 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart}) => {
                                     <li className={styles.total}>
                                         <span>Итого:</span>
                                         <div></div>
-                                        <b>5 997 руб.</b>
+                                        <b>{totalPrice} руб.</b>
                                     </li>
                                     <li className={styles.tax}>
-                                        <span>Налог 13%:</span>
+                                        <span>Включая НДС:</span>
                                         <div></div>
-                                        <b>760 руб.</b>
+                                        <b>{(Number(totalPrice / 100 * 5).toFixed(2))} руб.</b>
                                     </li>
                                 </ul>
                                 <button onClick={onClickOrder}
