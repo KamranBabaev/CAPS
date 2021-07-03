@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://kamranbabaev.github.io/CAPS/",
-  "proxy": "https://60d6dc54307c300017a5f532.mockapi.io/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
