@@ -6,8 +6,8 @@ import {AppContext} from "../../App";
 export const Card = ({
                          id,
                          name,
-                         price,
                          imgUrl,
+                         price,
                          onAddToFavorite,
                          onPlus,
                          favorited = false,
@@ -47,32 +47,25 @@ export const Card = ({
                     </ContentLoader>
 
                     : <>
-                        {favorited || <div className={styles.favorite}>
-                            <img onClick={onClickFavorite}
-                                 src={isFavorite ? 'icons/liked.svg' : 'icons/unliked.svg'}
+                        {favorited && (<div className={styles.favorite} onClick={onClickFavorite}>
+                            <img src={isFavorite ? 'img/liked.svg' : 'img/unliked.svg'}
                                  width={18}
                                  height={18} alt=''/>
-                        </div>}
-
+                        </div>)}
                         <img src={imgUrl} width={133} alt=""/>
                         <h5>{name}</h5>
-
                         <div className={styles.cardBottom}>
-
                             <div className={styles.cardPrice}>
                                 <span>Цена:  </span>
                                 <b>{price} руб.</b>
                             </div>
-
                             {onPlus && <button className={styles.button} onClick={onClickPlus}>
-                                <img src={isItemAdded(id) ? 'icons/plus.svg' : 'icons/add.png'} width={20} height={20}
+                                <img src={isItemAdded(id) ? 'img/plus.svg' : 'img/add.png'} width={20} height={20}
                                      alt=""/>
                             </button>}
-
                         </div>
                     </>
             }
-
         </div>
     )
 }

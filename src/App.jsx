@@ -40,17 +40,16 @@ function App() {
         fetchData()
     }, [])
 
-
     const onAddtoCart = async (obj) => {
         try {
-            const findItem = cartItems.find(item => Number(item.parentID) === Number(obj.id))
+            const findItem = cartItems.find((item) => Number(item.parentID) === Number(obj.id))
             if (findItem) {
-                setCartItems(prev => prev.filter(item => Number(item.parentID) !== Number(obj.id)))
+                setCartItems(prev => prev.filter((item) => Number(item.parentID) !== Number(obj.id)))
                 await axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/cart/${findItem.id}`)
             } else {
-                setCartItems(prev => [...prev, obj])
-                const {data} = await axios.post('https://60d6dc54307c300017a5f532.mockapi.io/cart', obj)
-                setCartItems(prev => prev.map(item => {
+                setCartItems((prev) => [...prev, obj])
+                const {data} = await axios.post('https://60d6dc54307c300017a5f532.mockapi.io/cart/', obj)
+                setCartItems(prev => prev.map((item) => {
                     if (item.parentID === data.parentID) {
                         return {
                             ...item, id: data.id
@@ -62,15 +61,28 @@ function App() {
         } catch (error) {
             alert('Ошибка при добавлении в корзину :(')
         }
-
     }
 
-    const onRemoveItemToCart = async (id) => {
+    const onRemoveItemToCart = (id) => {
         try {
-            await axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/cart/${id}`)
-            setCartItems(prev => prev.filter(item => item.id !== id))
+            axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/cart/${id}`)
+            setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(id)))
         } catch (error) {
             alert('Ошибка при удалении товаров из корзины :(')
+        }
+    }
+
+    const onAddToFavorite = async (obj) => {
+        try {
+            if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
+                axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/favorites/${obj.id}`)
+                setFavorites((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+            } else {
+                const {data} = await axios.post('https://60d6dc54307c300017a5f532.mockapi.io/favorites', obj)
+                setFavorites((prev) => [...prev, data])
+            }
+        } catch (error) {
+            alert('Не удалось добавить в избранное..')
         }
     }
 
@@ -79,21 +91,8 @@ function App() {
         setSearchValue(text)
     }
 
-    const onAddToFavorite = async (obj) => {
-        try {
-            if (favorites.find(favObj => Number(favObj.id) === Number(obj.id))) {
-                axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/favorites/${obj.id}`)
-            } else {
-                const {data} = await axios.post('https://60d6dc54307c300017a5f532.mockapi.io/favorites', obj)
-                setFavorites(prev => [...prev, data])
-            }
-        } catch (error) {
-            alert('Не удалось добавить в избранное..')
-        }
-    }
-
     const isItemAdded = (id) => {
-        return cartItems.some(obj => Number(obj.id) === Number(id))
+        return cartItems.some((obj) => Number(obj.parentID) === Number(id))
     }
 
 
@@ -118,22 +117,23 @@ function App() {
 
                 <Header onClickCart={() => setCartOpened(true)}/>
 
-                <Route exact path='/'>
-                    <Home cartItems={cartItems}
+                <Route exact path=''>
+                    <Home items={items}
+                          cartItems={cartItems}
                           searchValue={searchValue}
                           setSearchValue={setSearchValue}
                           onChangeSearchInput={onChangeSearchInput}
                           onAddToFavorite={onAddToFavorite}
                           onAddtoCart={onAddtoCart}
                           isLoading={isLoading}
-                          items={items}/>
+                    />
                 </Route>
 
-                <Route exact path='/favorites'>
+                <Route exact path='favorites'>
                     <Favorites/>
                 </Route>
 
-                <Route exact path='/orders'>
+                <Route exact path='orders'>
                     <Orders/>
                 </Route>
 

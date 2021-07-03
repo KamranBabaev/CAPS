@@ -13,7 +13,7 @@ export const Header = (props) => {
         <header>
             <Link to='/'>
                 <div className={styles.headerLeft}>
-                    <img src={'icons/adelie-1.svg'} width={40} height={40} alt=''/>
+                    <img src={'img/adelie-1.svg'} width={40} height={40} alt=''/>
                     <div className={styles.headerInfo}>
                         <h3>CAPS</h3>
                         <p>магазин лучших бейсболок</p>
@@ -25,16 +25,16 @@ export const Header = (props) => {
             <ul className={styles.headerRight}>
                 <li>
                     <Link to='/favorites'>
-                        <img src={'icons/favorite.svg'} width={22} height={22} style={{opacity: '60%'}}/>
+                        <img src={'img/favorite.svg'} width={22} height={22} style={{opacity: '60%'}}/>
                     </Link>
                 </li>
                 <li>
                     <Link to='/orders'>
-                        <img src={'icons/userAcc.svg'} width={22} height={22} style={{opacity: '60%'}}/>
+                        <img src={'img/userAcc.svg'} width={22} height={22} style={{opacity: '60%'}}/>
                     </Link>
                 </li>
                 <li onClick={props.onClickCart}>
-                    <img src={'icons/cart.svg'} width={22} height={22} style={{opacity: '60%'}}/>
+                    <img src={'img/cart.svg'} width={22} height={22} style={{opacity: '60%'}}/>
                     <span style={{marginRight: '35px', fontWeight: '600'}}>{totalPrice} руб.</span>
                 </li>
             </ul>

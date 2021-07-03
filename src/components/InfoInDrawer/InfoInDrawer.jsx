@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {AppContext} from "../../App";
 
 
-export const InfoInDrawer = ({title, description, image}) => {
+export const InfoInDrawer = ({title, image, description}) => {
 
     const {setCartOpened} = useContext(AppContext)
     return (

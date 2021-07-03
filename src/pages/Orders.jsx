@@ -28,7 +28,7 @@ export function Orders() {
 
             <div className='allCaps'>
                 {
-                    (isLoading ? [...Array(6)] : orders)
+                    (isLoading ? [...Array(8)] : orders)
                         .map((obj, index) =>
                             <Card key={index}
                                   loading={isLoading}

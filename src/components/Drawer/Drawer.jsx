@@ -4,26 +4,36 @@ import {useContext, useState} from "react";
 import {AppContext} from "../../App";
 import axios from "axios";
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
 
     const {cartItems, setCartItems} = useContext(AppContext)
-    const [isOrderComplete, setIsOrderComplete] = useState(false)
     const [orderID, setOrderID] = useState(null)
+    const [isOrderComplete, setIsOrderComplete] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const totalPrice = cartItems.reduce((sum, elem) => elem.price + sum, 0)
 
 
     const onClickOrder = async () => {
         try {
+            setIsLoading(true)
             const {data} = await axios.post('https://60d6dc54307c300017a5f532.mockapi.io/orders', {items: cartItems})
-            axios.put('https://60d6dc54307c300017a5f532.mockapi.io/orders', [])
             setOrderID(data.id)
             setIsOrderComplete(true)
             setCartItems([])
+
+            for (let i = 0; i < cartItems.length; i++) {
+                const item = cartItems[i]
+                await axios.delete('https://60d6dc54307c300017a5f532.mockapi.io/cart/' + item.id)
+                await delay(1000);
+            }
         } catch (error) {
             alert('Не удалось создать заказ! :(')
         }
+        setIsLoading(false);
     }
 
     return (
@@ -31,7 +41,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
             <div className={styles.drawer}>
                 <h2>Корзина:
                     <img className={styles.removeBTN}
-                         src={'icons/cancel.png'}
+                         src={'img/cancel.png'}
                          width={18}
                          height={18}
                          alt=''
@@ -55,7 +65,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
                                             </div>
                                             <img onClick={() => onRemoveItemToCart(obj.id)}
                                                  className={styles.removeBTN}
-                                                 src={'icons/cancel.png'}
+                                                 src={'img/cancel.png'}
                                                  width={15} height={15} alt=''/>
                                         </div>
                                     ))
@@ -74,22 +84,22 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
                                         <b>{(Number(totalPrice / 100 * 5).toFixed(2))} руб.</b>
                                     </li>
                                 </ul>
-                                <button onClick={onClickOrder}
+                                <button disabled={isLoading}
+                                        onClick={onClickOrder}
                                         className={styles.greenBTN}>оформить заказ
-                                    <img src={'icons/right-arrow.png'} width={28} alt=''/>
+                                    <img src={'img/right-arrow.png'} width={28} alt=''/>
                                 </button>
                             </div>
                         </>
 
 
                         : <InfoInDrawer title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
-                                        image={isOrderComplete ? 'icons/orderDone.png' : 'icons/emptyCart.svg'}
+                                        image={isOrderComplete ? 'img/orderDone.png' : 'img/emptyCart.svg'}
                                         description={isOrderComplete
                                             ? `Номер вашего заказа #${orderID}, в ближайшее время он будет передан в курьерскую службу!`
                                             : 'Добавьте один и более товаров для оформления заказа'}
                         />
                 }
-
             </div>
         </div>
     )
