@@ -3,7 +3,7 @@ import axios from 'axios'
 import './App.css';
 import {Drawer} from "./components/Drawer/Drawer";
 import {Header} from "./components/Header/Header";
-import {Route} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
 import {Orders} from "./pages/Orders";
@@ -117,25 +117,27 @@ function App() {
 
                 <Header onClickCart={() => setCartOpened(true)}/>
 
-                <Route exact path=''>
-                    <Home items={items}
-                          cartItems={cartItems}
-                          searchValue={searchValue}
-                          setSearchValue={setSearchValue}
-                          onChangeSearchInput={onChangeSearchInput}
-                          onAddToFavorite={onAddToFavorite}
-                          onAddtoCart={onAddtoCart}
-                          isLoading={isLoading}
-                    />
-                </Route>
+                    <Route exact path='/'>
+                        <Home items={items}
+                              cartItems={cartItems}
+                              searchValue={searchValue}
+                              setSearchValue={setSearchValue}
+                              onChangeSearchInput={onChangeSearchInput}
+                              onAddToFavorite={onAddToFavorite}
+                              onAddtoCart={onAddtoCart}
+                              isLoading={isLoading}
+                        />
+                    </Route>
 
-                <Route exact path='favorites'>
-                    <Favorites/>
-                </Route>
+                    {/*<Route path='favorites' component={Favorites}/>*/}
 
-                <Route exact path='orders'>
-                    <Orders/>
-                </Route>
+                    <Route exact path='/favorites'>
+                        <Favorites/>
+                    </Route>
+
+                    <Route exact path='/orders'>
+                        <Orders/>
+                    </Route>
 
             </div>
         </AppContext.Provider>

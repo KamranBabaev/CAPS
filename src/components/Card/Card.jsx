@@ -2,6 +2,8 @@ import styles from './Card.module.scss'
 import {useContext, useState} from "react";
 import ContentLoader from "react-content-loader"
 import {AppContext} from "../../App";
+import plus from '../../assets/plus.svg'
+import add from '../../assets/add.png'
 
 export const Card = ({
                          id,
@@ -60,7 +62,7 @@ export const Card = ({
                                 <b>{price} руб.</b>
                             </div>
                             {onPlus && <button className={styles.button} onClick={onClickPlus}>
-                                <img src={isItemAdded(id) ? 'img/plus.svg' : 'img/add.png'} width={20} height={20}
+                                <img src={isItemAdded(id) ? plus : add} width={20} height={20}
                                      alt=""/>
                             </button>}
                         </div>

@@ -23,12 +23,12 @@ export const Header = (props) => {
 
             <ul className={styles.headerRight}>
                 <li>
-                    <Link to='/favorites'>
+                    <Link to='favorites'>
                         <img src={'img/favorite.svg'} width={22} height={22} style={{opacity: '80%'}}/>
                     </Link>
                 </li>
                 <li>
-                    <Link to='/orders'>
+                    <Link to='orders'>
                         <img src={'img/userAcc.svg'} width={22} height={22} style={{opacity: '80%'}}/>
                     </Link>
                 </li>
