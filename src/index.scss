@@ -12,7 +12,6 @@ body {
 }
 
 .wrapper {
-
   background-color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
   border-radius: 20px;
@@ -36,6 +35,7 @@ body {
 
     .contentHeader {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       margin-bottom: 20px;
       justify-content: space-between;

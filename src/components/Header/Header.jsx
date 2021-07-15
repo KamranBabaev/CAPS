@@ -17,7 +17,7 @@ export const Header = (props) => {
             <Link to='/'>
                 <div className={styles.headerLeft}>
                     <div className={styles.headerInfo}>
-                        <h3>CAPSULA</h3>
+                        <h3><b>CAPSULA</b></h3>
                         <p>магазин лучших гаджетов</p>
                     </div>
                 </div>
