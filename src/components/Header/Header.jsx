@@ -2,6 +2,9 @@ import styles from './Header.module.scss'
 import {Link} from "react-router-dom";
 import {useContext} from "react";
 import {AppContext} from "../../App";
+import favorite from "../../assets/favorite.svg"
+import userAcc from "../../assets/userAcc.svg"
+import cart from "../../assets/cart.svg"
 
 export const Header = (props) => {
 
@@ -24,16 +27,16 @@ export const Header = (props) => {
             <ul className={styles.headerRight}>
                 <li>
                     <Link to='favorites'>
-                        <img src={'img/favorite.svg'} width={22} height={22} style={{opacity: '80%'}}/>
+                        <img src={favorite} width={22} height={22} style={{opacity: '80%'}}/>
                     </Link>
                 </li>
                 <li>
                     <Link to='orders'>
-                        <img src={'img/userAcc.svg'} width={22} height={22} style={{opacity: '80%'}}/>
+                        <img src={userAcc} width={22} height={22} style={{opacity: '80%'}}/>
                     </Link>
                 </li>
                 <li onClick={props.onClickCart}>
-                    <img src={'img/cart.svg'} width={22} height={22} style={{opacity: '80%'}}/>
+                    <img src={cart} width={22} height={22} style={{opacity: '80%'}}/>
                     <span style={{marginRight: '35px', fontWeight: '600', fontSize: '20px'}}>{totalPrice} руб.</span>
                 </li>
             </ul>

@@ -3,7 +3,7 @@ import axios from 'axios'
 import './App.css';
 import {Drawer} from "./components/Drawer/Drawer";
 import {Header} from "./components/Header/Header";
-import {Route, Switch} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
 import {Orders} from "./pages/Orders";
@@ -75,7 +75,7 @@ function App() {
     const onAddToFavorite = async (obj) => {
         try {
             if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
-                axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/favorites/${obj.id}`)
+                await axios.delete(`https://60d6dc54307c300017a5f532.mockapi.io/favorites/${obj.id}`)
                 setFavorites((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
             } else {
                 const {data} = await axios.post('https://60d6dc54307c300017a5f532.mockapi.io/favorites', obj)
@@ -129,7 +129,6 @@ function App() {
                         />
                     </Route>
 
-                    {/*<Route path='favorites' component={Favorites}/>*/}
 
                     <Route exact path='/favorites'>
                         <Favorites/>

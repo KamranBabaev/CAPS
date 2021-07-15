@@ -5,7 +5,6 @@ import {AppContext} from "../App";
 export function Favorites() {
 
     const {favorites, onAddToFavorite} = useContext(AppContext)
-
     return (
         <div className='content'>
             <div className='contentHeader'>
@@ -18,7 +17,7 @@ export function Favorites() {
                         .map((obj, index) =>
                             <Card key={index}
                                   favorited={true}
-                                  onFavorite={onAddToFavorite}
+                                  onAddToFavorite={onAddToFavorite}
                                   {...obj}
                             />
                         )

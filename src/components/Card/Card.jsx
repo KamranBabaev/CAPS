@@ -4,6 +4,8 @@ import ContentLoader from "react-content-loader"
 import {AppContext} from "../../App";
 import plus from '../../assets/plus.svg'
 import add from '../../assets/add.png'
+import liked from '../../assets/liked.svg'
+import unliked from '../../assets/unliked.svg'
 
 export const Card = ({
                          id,
@@ -49,12 +51,14 @@ export const Card = ({
                     </ContentLoader>
 
                     : <>
-                        {favorited && (<div className={styles.favorite} onClick={onClickFavorite}>
-                            <img src={isFavorite ? 'img/liked.svg' : 'img/unliked.svg'}
+                        {onAddToFavorite && <div className={styles.favorite} onClick={onClickFavorite}>
+                            <img src={isFavorite ? liked : unliked}
                                  width={18}
                                  height={18} alt=''/>
-                        </div>)}
-                        <img src={imgUrl} width={133} alt=""/>
+                        </div>}
+                        <div className={styles.imgItem}>
+                            <img src={imgUrl} width={140} alt=""/>
+                        </div>
                         <h5>{name}</h5>
                         <div className={styles.cardBottom}>
                             <div className={styles.cardPrice}>

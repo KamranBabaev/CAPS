@@ -3,6 +3,10 @@ import {InfoInDrawer} from "../InfoInDrawer/InfoInDrawer";
 import {useContext, useState} from "react";
 import {AppContext} from "../../App";
 import axios from "axios";
+import cancel from '../../assets/cancel.png'
+import rightArrow from '../../assets/right-arrow.png'
+import orderDone from '../../assets/orderDone.png'
+import emptyCart from '../../assets/emptyCart.svg'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -41,7 +45,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
             <div className={styles.drawer}>
                 <h2>Корзина:
                     <img className={styles.removeBTN}
-                         src={'img/cancel.png'}
+                         src={cancel}
                          width={18}
                          height={18}
                          alt=''
@@ -65,7 +69,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
                                             </div>
                                             <img onClick={() => onRemoveItemToCart(obj.id)}
                                                  className={styles.removeBTN}
-                                                 src={'img/cancel.png'}
+                                                 src={cancel}
                                                  width={15} height={15} alt=''/>
                                         </div>
                                     ))
@@ -87,14 +91,14 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
                                 <button disabled={isLoading}
                                         onClick={onClickOrder}
                                         className={styles.greenBTN}>оформить заказ
-                                    <img src={'img/right-arrow.png'} width={28} alt=''/>
+                                    <img src={rightArrow} width={28} alt=''/>
                                 </button>
                             </div>
                         </>
 
 
                         : <InfoInDrawer title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
-                                        image={isOrderComplete ? 'img/orderDone.png' : 'img/emptyCart.svg'}
+                                        image={isOrderComplete ? orderDone : emptyCart}
                                         description={
                                             isOrderComplete
                                                 ? `Номер вашего заказа #${orderID}, в ближайшее время он будет передан в курьерскую службу!`
