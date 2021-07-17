@@ -6,6 +6,7 @@ import {AppContext} from "../../App";
 export const InfoInDrawer = ({title, img, description}) => {
 
     const {setCartOpened} = useContext(AppContext)
+
     return (
         <div className={styles.emptyCart}>
             <img className={styles.iconCart}
