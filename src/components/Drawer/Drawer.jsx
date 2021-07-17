@@ -4,9 +4,9 @@ import {useContext, useState} from "react";
 import {AppContext} from "../../App";
 import axios from "axios";
 import cancel from '../../assets/cancel.png'
-import rightarrow from '../../assets/rightarrow.png'
-import orderdone from '../../assets/orderdone.png'
-import emptycart from '../../assets/emptycart.svg'
+import rightarrow from '../../assets/rightarrow.PNG'
+import orderdone from '../../assets/orderdone.PNG'
+import emptycart from '../../assets/emptycart.SVG'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

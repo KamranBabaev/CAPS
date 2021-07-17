@@ -66,8 +66,7 @@ export const Card = ({
                                 <b>{price} руб.</b>
                             </div>
                             {onPlus && <button className={styles.button} onClick={onClickPlus}>
-                                <img src={isItemAdded(id) ? plus : add} width={20} height={20}
-                                     alt=""/>
+                                <img src={isItemAdded(id) ? plus : add} alt=""/>
                             </button>}
                         </div>
                     </>
