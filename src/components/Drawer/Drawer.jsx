@@ -98,7 +98,7 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
 
 
                         : <InfoInDrawer title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
-                                        image={isOrderComplete ? <img src={orderdone} alt=''/> : <img src={emptycart} alt=''/>}
+                                        img={isOrderComplete ? orderdone : emptycart}
                                         description={
                                             isOrderComplete
                                                 ? `Номер вашего заказа #${orderID}, в ближайшее время он будет передан в курьерскую службу!`

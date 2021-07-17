@@ -32,11 +32,11 @@ export function Home({
             <div className='contentHeader'>
                 <div>
                     <h1>
-                        {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все продукты: '}
+                        {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все гаджеты: '}
                     </h1>
                 </div>
                 <div className='searchBlock'>
-                    <img src={searchICON} width={15} height={15} alt=''/>
+                    <img src={searchICON} width={17} height={17} alt=''/>
                     {
                         searchValue ?
                             <img onClick={() => setSearchValue('')}
