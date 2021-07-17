@@ -29,11 +29,12 @@
 
   .cardBottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     .cardPrice {
       flex-direction: column;
+      width: 170px;
 
       span {
         font-size: 14px;
