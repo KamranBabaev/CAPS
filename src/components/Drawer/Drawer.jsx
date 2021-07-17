@@ -4,9 +4,9 @@ import {useContext, useState} from "react";
 import {AppContext} from "../../App";
 import axios from "axios";
 import cancel from '../../assets/cancel.png'
-import rightArrow from '../../assets/right-arrow.png'
-import orderDone from '../../assets/orderDone.png'
-import emptyCart from '../../assets/emptyCart.svg'
+import rightarrow from '../../assets/rightarrow.png'
+import orderdone from '../../assets/orderdone.png'
+import emptycart from '../../assets/emptycart.svg'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -91,14 +91,14 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
                                 <button disabled={isLoading}
                                         onClick={onClickOrder}
                                         className={styles.greenBTN}>оформить заказ
-                                    <img src={rightArrow} width={28} alt=''/>
+                                    <img src={rightarrow} width={28} alt=''/>
                                 </button>
                             </div>
                         </>
 
 
                         : <InfoInDrawer title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
-                                        image={isOrderComplete ? orderDone : emptyCart}
+                                        image={isOrderComplete ? orderdone : emptycart}
                                         description={
                                             isOrderComplete
                                                 ? `Номер вашего заказа #${orderID}, в ближайшее время он будет передан в курьерскую службу!`
