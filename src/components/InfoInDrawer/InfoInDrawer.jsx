@@ -14,7 +14,7 @@ export const InfoInDrawer = ({title, img, description}) => {
                  width={200} height={200} alt=''
             />
             <h2 style={{marginBottom: '0px', opacity: '70%'}}>{title}</h2>
-            <p>{description}</p>
+            <span>{description}</span>
             <button onClick={() => setCartOpened(false)} className={styles.greenBTN}>
                 вернуться назад
             </button>
