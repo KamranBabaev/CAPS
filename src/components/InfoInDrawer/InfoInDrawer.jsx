@@ -11,7 +11,7 @@ export const InfoInDrawer = ({title, img, description}) => {
         <div className={styles.emptyCart}>
             <img className={styles.iconCart}
                  src={img}
-                 width={140} height={140} alt=''
+                 width={200} height={200} alt=''
             />
             <h2 style={{marginBottom: '0px', opacity: '70%'}}>{title}</h2>
             <p>{description}</p>

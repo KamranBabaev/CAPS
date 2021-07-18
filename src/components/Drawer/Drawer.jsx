@@ -5,8 +5,6 @@ import {AppContext} from "../../App";
 import axios from "axios";
 import cancel from '../../assets/cancel.png'
 import rightarrow from '../../assets/rightarrow.png'
-import orderdone from '../../assets/orderdone.png'
-import emptycart from '../../assets/emptycart.svg'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -98,7 +96,8 @@ export const Drawer = ({onClose, items = [], onRemoveItemToCart, opened}) => {
 
 
                         : <InfoInDrawer title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
-                                        img={isOrderComplete ? orderdone : emptycart}
+                                        img={isOrderComplete ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAvqwAioorBmf6sfEGfr0wAsnq2ndmzYRHaDKSUCWqknATETFSt-t8JGSDd0XArCCUlLM&usqp=CAU'
+                                            : 'https://image.flaticon.com/icons/png/512/2038/2038854.png' }
                                         description={
                                             isOrderComplete
                                                 ? `Номер вашего заказа #${orderID}, в ближайшее время он будет передан в курьерскую службу!`
